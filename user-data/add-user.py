@@ -14,6 +14,7 @@ def start_connection(db_name):
         return con
     except sqlite3.Error:
         print(sqlite3.Error)
+        exit(0)
         
 
 #parsing the arguments passed along with file execution
@@ -55,21 +56,14 @@ def addUser(con, name, phone, address):
 
     print("new user added:", new_id, name, phone, address)
     print('total 1 new user added')
+    cursorObj.close()
 
 
 #main method
 def main():
-
-    #starting connection
     con = start_connection('records.db')
-
-    # getting CLI arguments
     name, phone, address = parseArguments()
-
-    # adding user
     addUser(con, name, phone ,address)
-
-    #closing conection
     con.close()
 
 

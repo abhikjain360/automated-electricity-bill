@@ -13,6 +13,7 @@ def start_connection(db_name):
         return con
     except sqlite3.Error:
         print(sqlite3.Error)
+        exit(0)
 
 
 # method to add user using given details
@@ -46,16 +47,11 @@ def addUser(con, name, phone, address):
 
 #main method
 def main():
-
-    #starting connection
     con = start_connection('records.db')
-
-    # opening the file to take inputs
     new_users = open('new-users.txt', 'r')
 
     count = 0
 
-    # adding user
     for new_user in new_users:
         name1, name2, phone, address = new_user.split(' ')
         name = name1 + ' ' + name2
@@ -63,10 +59,7 @@ def main():
         addUser(con, name, phone, address)  
         count += 1      
 
-    # commiting changes
     con.commit()
-
-    #closing conection and file
     con.close()
     new_users.close()
 
