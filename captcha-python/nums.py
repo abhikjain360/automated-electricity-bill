@@ -19,8 +19,7 @@ for i in range(n):
     line_no = np.random.randint(2,5)
 
     # putting the text
-    img = cv2.putText(img, x, (3,25),
-                  cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255), 2)
+    img = cv2.putText(img, x, (3,25),cv2.FONT_HERSHEY_DUPLEX, 1, (255,255,255), 2)
 
     # making the image binary
     ret,img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY)
