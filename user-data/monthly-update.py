@@ -25,22 +25,22 @@ def updatePrev(con):
     # setting previous month's reading in prev col
     sql = f'UPDATE monthly_usage SET prev = cur'
     cursorObj.execute(sql)
+    cursorObj.close()
 
 
 # method to add usage to database
-def addUsage(con, user_id, usage):
-
-    # creating cursor
-    cursorObj = con.cursor()
+def addUsage(cursorObj, user_id, usage):
 
     # setting previous month's reading in prev col
     sql = f'UPDATE monthly_usage SET cur = {usage} WHERE user_id = {user_id}'
     cursorObj.execute(sql)
+    cursorObj.close()
 
 
 # method to calculate bill accorinding to slab rates
 # as per https://cspdcl.co.in/cseb/(S(5nxew3vfma2prb13acqf2xg0))/Files/Tariff_Order_FY_2019_20_09052019.pdf , pg 236
 def calculateBill(power_used):
+
     bill = 0
     if power_used <= 40:
         return power_used * 3.7
@@ -58,16 +58,44 @@ def calculateBill(power_used):
         return bill + 400 * 5.3 + (power_used - 400) * 7.35
     
 
+# method to update monthly_bill table as per monthly_usage
+def updateBills(con):
+
+    # ccursor to execute queries
+    cursorObj = con.cursorObj()
+
+    # getting the usage readings from the database
+    sql = 'SELECT prev,cur FROM monthly_usage'
+    cursorObj.execute(sql)
+    usage = cursorObj.fetchall()
+
+    # updating the monthly_usage
+    for row in usage:
+        bill = calculateBill(float(row[2] - row[1]))
+        sql = f'UPDATE monthly_bill SET bill = {bill} WHERE user_id = {row[0]}'
+        cursorObj.execute(sql)
+
+    cursorObj.close()
+
+
 # main method
 def main():
 
     con = start_connection('records.db')
+    cursorObj = con.cursor()
     readings = open('readings.txt','r')
     updatePrev(con)
 
     for row in readings:
         user_id = int(row[0][0])
         usage = float(row[0][1])
-        addUsage(con, user_id, usage)
+        addUsage(cursorObj, user_id, usage)
+
+    updateBills()
+
+    cursorObj.close()
+    con.commit()
+    con.close()
+    readings.close()
 
     
