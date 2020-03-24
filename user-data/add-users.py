@@ -17,10 +17,7 @@ def start_connection(db_name):
 
 
 # method to add user using given details
-def addUser(con, name, phone, address):
-
-    # creating cursor
-    cursorObj = con.cursor()
+def addUser(cursorObj, name, phone, address):
 
     # getting the last users ID, and settinf next one's ID
     cursorObj.execute("SELECT MAX(user_id) FROM user")
@@ -41,6 +38,7 @@ def addUser(con, name, phone, address):
     # Inserting row in monthly_bill table
     sql = f"INSERT INTO monthly_bill VALUES ({new_id}, 0)"
     cursorObj.execute(sql)
+    cursorObj
 
     print("new user added:", new_id, name, phone, address)
 
@@ -48,6 +46,7 @@ def addUser(con, name, phone, address):
 #main method
 def main():
     con = start_connection('records.db')
+    cursorObj = con.cursor()
     new_users = open('new-users.txt', 'r')
 
     count = 0
@@ -56,7 +55,7 @@ def main():
         name1, name2, phone, address = new_user.split(' ')
         name = name1 + ' ' + name2
         address = address[:-1]
-        addUser(con, name, phone, address)  
+        addUser(cursorObj, name, phone, address)  
         count += 1      
 
     con.commit()
