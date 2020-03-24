@@ -58,6 +58,7 @@ def main():
         addUser(cursorObj, name, phone, address)  
         count += 1      
 
+    cursorObj.close()
     con.commit()
     con.close()
     new_users.close()
