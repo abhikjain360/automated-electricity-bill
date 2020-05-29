@@ -1,3 +1,5 @@
 ~
 src/datcontroller/~
 src/datcontroller/node_modules
+src/datcontroller/dbfiles/db
+src/datcontroller/dbfiles/~
