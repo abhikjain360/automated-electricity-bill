@@ -9,7 +9,7 @@ var userSchema =  new mongoose.Schema({
 		type : String,
 		required : "Required",
 	},
-	adddress : {
+	address : {
 		type : String,
 		required : "Required",
 	},
@@ -22,4 +22,4 @@ var userSchema =  new mongoose.Schema({
 	}
 });
 
-var user = mongoose.model('user', userSchema);
+mongoose.model('user', userSchema);

@@ -1,0 +1,18 @@
+doctype html
+html(lang='en')
+	head
+		title Add New User
+	body
+		h1 Add new user
+	form(action='/adduser', method='POST')
+		div
+			label Name:
+			input(type='text', name='name')
+		div
+			label Address:
+			input(type='text', name='address')
+		div
+			label Phone Number:
+			input(type='text', name='phone')
+		div
+			input(type='submit')
