@@ -6,7 +6,7 @@ exports.uploader = (req, res, next) => {
 exports.post = (req, res, next) => {
 	let img = req.files.img;
 	let id = req.body.id;
-	let date = Date.toISOString(Date.now());
+	let date = Date.now();
 	let imgpath = '../images/' + id + date + '.jpg';
 	img.mv(imgpath, (err) => {
 		if (err) {
