@@ -3,7 +3,7 @@ exports.uploader = (req, res, next) => {
 };
 
 // for POST method image uploading
-exports.upload = (req, res, next) => {
+exports.post = (req, res, next) => {
 	let img = req.files.img;
 	let id = req.body.id;
 	let date = Date.toISOString(Date.now());
