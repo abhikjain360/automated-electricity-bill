@@ -1,5 +1,5 @@
 
-# Model for Scene based number detection
+# Model for  detection of digits in electric metres
 
 ## Requirements
   - Tensorflow 
