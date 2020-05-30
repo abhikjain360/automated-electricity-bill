@@ -18,15 +18,13 @@ exports.post = (req, res, next) => {
 	user.phone = req.body.phone;
 
 	user.id = '1002';
-	user.doj = Date.toISOString(Date.now());
+	user.doj = new Date().toISOString();
 
 	user.save((err, doc) => {
-		if (err)
-		{
+		if (err) {
 			res.redirect('adduser/failed');
 		}
-		else
-		{
+		else {
 			res.redirect('adduser/success');
 		}
 	});
