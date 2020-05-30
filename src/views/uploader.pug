@@ -1,15 +1,15 @@
 doctype html
 html(lang='en')
 	head
-		title Upload image
+		title Upload Image
 	body
-		h1 Upload Meter Image
-	form(action='/uploader', method='POST')
-		div
-			label ID:
-			input(type='text', name='id')
-		div
-			label Upload Picture
-			input(type='file', name='img')
-		div
-			input(type='submit')
+		h1 Upload Image
+		form(action='/uploader', method='post', enctype="multipart/form-data")
+			div
+				label id:
+				input(type='text', name='id')
+			div
+				label image
+				input(type='file', name='imgfile')
+			div
+				input(type='submit')
