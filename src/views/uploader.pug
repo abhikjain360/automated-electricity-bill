@@ -1,0 +1,13 @@
+doctype html
+html(lang='en')
+	head
+		title Upload image
+	body
+		h1 Upload Meter Image
+	form(action='/uploader', method='POST')
+		div
+			label ID:
+			input(type='text', name='id')
+		div
+			label Upload Picture
+			input(type='file', name='img')
