@@ -11,7 +11,9 @@
   "license": "UNLICENSED",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "connect-busboy": "0.0.2",
     "express": "^4.17.1",
+    "express-busboy": "^8.0.0",
     "express-fileupload": "^1.1.7-alpha.3",
     "express-handlebars": "^4.0.4",
     "express-upload": "^0.1.0",
