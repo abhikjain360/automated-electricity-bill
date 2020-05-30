@@ -1,20 +1,11 @@
-exports.uploader = (req, res, next) => {
+exports.uploader = (req, res) => {
 	res.render('uploader', { title: 'uploader' })
 };
 
 // for POST method image uploading
-exports.post = (req, res, next) => {
-	let img = req.files.img;
-	let id = req.body.id;
-	let date = Date.now();
-	let imgpath = '../images/' + id + date + '.jpg';
-	img.mv(imgpath, (err) => {
-		if (err) {
-			res.redirect('uploader/failed');
-		} else {
-			res.redirect('/upload/success');
-		}
-	});
+exports.post = (req, res) => {
+	console.log(req.body);
+	console.log(req.file);
 }
 
 exports.failed = (req, res) => {
