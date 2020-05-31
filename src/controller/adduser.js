@@ -6,7 +6,6 @@ exports.adduser = (req, res, next) => {
 // for POST connection
 const mongoose = require("mongoose");
 const userModel = require("../dbfiles/useradd.model")
-const con = require('../dbfiles/connection')
 let userSchema = mongoose.model('user');
 
 exports.post = (req, res, next) => {
