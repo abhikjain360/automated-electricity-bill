@@ -7,9 +7,6 @@ exports.adduser = (req, res) => {
 const mongoose = require("mongoose");
 let userSchema = mongoose.model('user');
 
-const multer = require("multer");
-const multerUpload = multer();
-
 exports.post = (req, res) => {
 	let user = new userSchema();
 
@@ -30,8 +27,6 @@ exports.post = (req, res) => {
 		}
 	});
 };
-
-exports.multer = multerUpload.none();
 
 exports.failed = (req, res) => {
 	res.render('adduserfailed');
