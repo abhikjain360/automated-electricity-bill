@@ -1,14 +1,16 @@
 // for GET connection
-exports.adduser = (req, res, next) => {
+exports.adduser = (req, res) => {
 	res.render('adduser', { title : 'adduser' });
 };
 
 // for POST connection
 const mongoose = require("mongoose");
-const userModel = require("../dbfiles/useradd.model")
 let userSchema = mongoose.model('user');
 
-exports.post = (req, res, next) => {
+const multer = require("multer");
+const multerUpload = multer();
+
+exports.post = (req, res) => {
 	let user = new userSchema();
 
 	console.log(req.body)
@@ -27,12 +29,14 @@ exports.post = (req, res, next) => {
 			res.redirect('adduser/success');
 		}
 	});
-}
+};
+
+exports.multer = multerUpload.none();
 
 exports.failed = (req, res) => {
 	res.render('adduserfailed');
-}
+};
 
 exports.success = (req, res) => {
 	res.render('addusersuccess');
-}
+};
