@@ -27,10 +27,10 @@ exports.post = (req, res) => {
 
 	upload.save((err, doc)=> {
 		if (err) {
-			res.redirect('upload/failed');
+			res.redirect('uploader/failed');
 		}
 		else {
-			res.redirect('upload/success');
+			res.redirect('uploader/success');
 		}
 	});
 };

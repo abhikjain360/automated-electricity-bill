@@ -18,8 +18,8 @@ router.get('/adduser/success', adduser.success);
 // uploader
 router.get('/uploader', uploader.uploader);
 router.post('/uploader', uploader.multer, uploader.post);
-router.get('uploader/success', uploader.success);
-router.get('uploader/failed', uploader.failed);
+router.get('/uploader/success', uploader.success);
+router.get('/uploader/failed', uploader.failed);
 
 
 module.exports = router;
