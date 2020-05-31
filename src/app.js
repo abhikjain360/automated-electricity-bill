@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const con = require('../dbfiles/connection')
+const con = require('./dbfiles/connection')
 
 // importing routes
 let router = require("./router");
