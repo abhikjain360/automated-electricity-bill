@@ -11,7 +11,7 @@ router.get('/', index.index);
 
 // adduser
 router.get('/adduser', adduser.adduser);
-router.post('/adduser', adduser.multer, adduser.post);
+router.post('/adduser', adduser.post);
 router.get('/adduser/failed', adduser.failed);
 router.get('/adduser/success', adduser.success);
 
