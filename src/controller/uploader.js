@@ -3,6 +3,18 @@ exports.uploader = (req, res) => {
 };
 
 // for POST connection
+const multer = require("multer");
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, 'images/')
+	},
+	filename: (req, file, cb) => {
+		filename = new Date().toISOString() + '.jpg';
+		cb(null, filename);
+	}
+});
+const multerUpload = multer({ storage: storage });
+
 const mongoose = require("mongoose");
 const uploadModel = require("../dbfiles/uploader.model")
 let uploadSchema = mongoose.model('upload')
@@ -22,6 +34,8 @@ exports.post = (req, res) => {
 		}
 	});
 };
+
+exports.multer = multerUpload.single('imgfile')
 
 exports.failed = (req, res) => {
 	res.render('uploadfailed');
