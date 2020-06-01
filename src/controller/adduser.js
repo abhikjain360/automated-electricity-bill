@@ -7,16 +7,27 @@ exports.adduser = (req, res) => {
 const mongoose = require("mongoose");
 let userSchema = mongoose.model('user');
 
+let userid = 1001;
+userSchema.
+	findOne()
+	.sort({ id: -1 })
+	.exec((err, doc) => {
+		userid = parseInt(doc.id);
+	});
+
+
 exports.post = (req, res) => {
 	let user = new userSchema();
 
-	console.log(req.body)
 	user.name = req.body.name;
 	user.address = req.body.address;
 	user.phone = req.body.phone;
 
-	user.id = '1002';
 	user.doj = new Date().toISOString();
+	userid = userid + 1;
+	user.id = userid;
+
+	console.log(user);
 
 	user.save((err, doc) => {
 		if (err) {
