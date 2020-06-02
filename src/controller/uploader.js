@@ -16,23 +16,32 @@ const storage = multer.diskStorage({
 const multerUpload = multer({ storage: storage });
 
 const mongoose = require("mongoose");
-const uploadModel = require("../dbfiles/uploader.model")
+let uploadModel = require('../dbfiles/uploader.model')
 let uploadSchema = mongoose.model('upload')
+let userSchema = mongoose.model('user')
 
 exports.post = (req, res) => {
-	let upload = new uploadSchema();
-
-	upload.id = req.body.id;
-	upload.filepath = req.file.filename;
-
-	upload.save((err, doc)=> {
-		if (err) {
-			res.redirect('uploader/failed');
+	userSchema.findOne({ id : req.body.id }, (err, doc) => {
+		if ( err || doc.password != req.body.password ) {
+			res.render('uploadfailed');
 		}
 		else {
-			res.redirect('uploader/success');
+			let upload = new uploadSchema();
+
+			upload.id = req.body.id;
+			upload.filepath = req.file.filename;
+
+			upload.save((err, doc)=> {
+				if (err) {
+					res.redirect('uploader/failed');
+				}
+				else {
+					res.redirect('uploader/success');
+				}
+			});
+
 		}
-	});
+	})
 };
 
 exports.multer = multerUpload.single('imgfile')
