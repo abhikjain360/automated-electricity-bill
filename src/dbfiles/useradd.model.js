@@ -5,6 +5,10 @@ var userSchema =  new mongoose.Schema({
 		type : String,
 		required : "Required",
 	},
+	password : {
+		type : String,
+		required : "Required",
+	},
 	name : {
 		type : String,
 		required : "Required",
@@ -19,7 +23,7 @@ var userSchema =  new mongoose.Schema({
 	},
 	doj : {
 		type : Date,
-	}
+	},
 });
 
 mongoose.model('user', userSchema);
