@@ -19,6 +19,7 @@ app.set('views', path.join(__dirname, '/views/'));
 
 // use pug to render
 app.set('view engine', 'pug');
+app.engine('pug', require('pug').__express)
 
 // leave the rest to router.js
 app.use('/', router);
