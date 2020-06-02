@@ -5,6 +5,7 @@ exports.adduser = (req, res) => {
 
 // for POST connection
 const mongoose = require("mongoose");
+let userModel = require('../dbfiles/useradd.model')
 let userSchema = mongoose.model('user');
 
 let userid = 1001;
@@ -26,6 +27,7 @@ exports.post = (req, res) => {
 	user.doj = new Date().toISOString();
 	userid = userid + 1;
 	user.id = userid;
+	user.password = req.body.password;
 
 	console.log(user);
 
