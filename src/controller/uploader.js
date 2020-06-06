@@ -23,9 +23,8 @@ let userSchema = mongoose.model('user')
 exports.post = (req, res) => {
 	userSchema.findOne({ id : req.body.id }, (err, doc) => {
 		if ( err || doc.password != req.body.password ) {
-			res.render('uploadfailed');
-		}
-		else {
+			res.redirect('uploader/failed');
+		} else {
 			let upload = new uploadSchema();
 
 			upload.id = req.body.id;
