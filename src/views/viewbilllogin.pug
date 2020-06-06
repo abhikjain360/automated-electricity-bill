@@ -1,0 +1,15 @@
+doctype html
+html(lang='en')
+	head
+		title View Login
+	body
+		h1 View Bill
+		form(action='/viewbill/login', method='post')
+			div
+				label id:
+				input(type='text', name='id')
+			div
+				label Password:
+				input(type='password', name='password')
+			div
+				input(type='submit')
