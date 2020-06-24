@@ -69,3 +69,13 @@ exports.login_post = (req, res) => {
 exports.login_page = (req, res) => {
 	res.render('loginpage');
 };
+
+exports.pay = (req, res) => {
+	uploadSchema.updateMany({ id: req.body.id }, { payed: true }, (err) => {
+		if (err) {
+		console.log(err);
+		} else {
+			res.render('payed');
+		}
+	})
+}
