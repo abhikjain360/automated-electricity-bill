@@ -5,6 +5,7 @@ exports.login = (req, res) => {
 
 //for POST connection
 const mongoose = require("mongoose");
+const chart = require('chart.js');
 let userSchema = mongoose.model('user');
 let uploadSchema = mongoose.model('upload');
 
@@ -16,34 +17,34 @@ function parseISOString(s) {
 exports.login_post = (req, res) => {
 	userSchema.findOne({id: req.body.id}, (err, doc) => {
 		if (err || doc.password != req.body.password) {
-			res.redirect('viewbill/loginfailed');
+			res.redirect('loginfailed');
 		} else {
-			uploadSchema.find({ id: req.body.id }, (err, doc) => {
+			uploadSchema.find({id: req.body.id}, (err, doc) => {
 				if (err) {
-					res.redirect('viewbill/filename');
+					res.redirect('filename');
 				}
 				/* TODO: After uploads starts finding
 					   values from images, uncomment the following */
 				//billinfo.bill = doc[0].value - doc.slice(-1)[0].value;
 				console.log(doc);
-				let billinfo = { id: req.body.id };
-				billinfo.prevdate = parseISOString(String(doc[0].filepath).slice(0, -4));
-				billinfo.lastdate = parseISOString(String( doc.slice(-1)[0].filepath ).slice(0, -4));
-				console.log(billinfo);
+				res.render('loginpage', {data : JSON.stringify(doc)});
 			});
-			uploadSchema.find({ id: req.body.id, payed: false }, (err, doc) => {
+			uploadSchema.find({id: req.body.id, payed: false}, (err, doc) => {
 				if (err) {
-					res.redirect('viewbill/filename');
+					res.redirect('filename');
 				}
 				/* TODO: After uploads starts finding
 					   values from images, uncomment the following */
 				//billinfo.bill = doc[0].value - doc.slice(-1)[0].value;
-				console.log(doc);
-				let billinfo = { id: req.body.id };
+				let billinfo = {id: req.body.id};
 				billinfo.prevdate = parseISOString(String(doc[0].filepath).slice(0, -4));
-				billinfo.lastdate = parseISOString(String( doc.slice(-1)[0].filepath ).slice(0, -4));
+				billinfo.lastdate = parseISOString(String(doc.slice(-1)[0].filepath).slice(0, -4));
 				console.log(billinfo);
 			});
 		}
 	});
+};
+
+exports.login_page = (req, res) => {
+	res.render('loginpage');
 };
