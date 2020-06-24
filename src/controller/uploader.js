@@ -9,7 +9,10 @@ destination: (req, file, cb) => {
 		cb(null, 'images/')
 	},
 filename: (req, file, cb) => {
-		filename = new Date().toISOString() + '.jpg';
+		let d = new Date();
+		d.setHours(d.getHours() + 5);
+		d.setMinutes(d.getMinutes + 30);
+		filename = d.toISOString() + '.jpg';
 		cb(null, filename);
 	}
 });
@@ -24,12 +27,10 @@ let uploadSchema = mongoose.model('upload');
 let userSchema = mongoose.model('user');
 
 function readPrediction(req, res) {
-	console.log("function executed")
 	fs.readFile('prediction.txt', (err, data) => {
 		if(err) {
 			console.log("open error : " + err)
 		} else {
-			console.log("in function : " + data)
 			// TODO: uncomment it when working
 //			exec("rm ../prediction.txt", (err, stdout, stderr) => {
 //				console.log('stdout: ' + stdout);
@@ -45,8 +46,6 @@ function readPrediction(req, res) {
 			// and saves them on a file
 			exec("echo 'write commmand to get number output'",
 			(err, stdout, stderr) => {
-				console.log('stdout: ' + stdout);
-				console.log('stderr: ' + stderr);
 				if (err !== null) {
 					console.log('exec error: ' + err);
 				}
@@ -59,7 +58,7 @@ function readPrediction(req, res) {
 			upload.filepath = req.file.filename;
 			upload.payed = false;
 
-			upload.save((err, doc)=> {
+			upload.save((err) => {
 				if (err) {
 					res.redirect('uploader/failed');
 				} else {
