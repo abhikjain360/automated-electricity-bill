@@ -31,6 +31,19 @@ exports.login_post = (req, res) => {
 				billinfo.lastdate = parseISOString(String( doc.slice(-1)[0].filepath ).slice(0, -4));
 				console.log(billinfo);
 			});
+			uploadSchema.find({ id: req.body.id, payed: false }, (err, doc) => {
+				if (err) {
+					res.redirect('viewbill/filename');
+				}
+				/* TODO: After uploads starts finding
+					   values from images, uncomment the following */
+				//billinfo.bill = doc[0].value - doc.slice(-1)[0].value;
+				console.log(doc);
+				let billinfo = { id: req.body.id };
+				billinfo.prevdate = parseISOString(String(doc[0].filepath).slice(0, -4));
+				billinfo.lastdate = parseISOString(String( doc.slice(-1)[0].filepath ).slice(0, -4));
+				console.log(billinfo);
+			});
 		}
 	});
 };

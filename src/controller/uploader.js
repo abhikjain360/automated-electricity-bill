@@ -23,28 +23,21 @@ let uploadModel = require('../dbfiles/uploader.model');
 let uploadSchema = mongoose.model('upload');
 let userSchema = mongoose.model('user');
 
-readPrediction = () => {
-	fs.readFile('../prediction.txt', (err, data) => {
+function readPrediction(req, res) {
+	console.log("function executed")
+	fs.readFile('prediction.txt', (err, data) => {
 		if(err) {
-			console.log(err)
+			console.log("open error : " + err)
 		} else {
-			exec("rm ../prediction.txt", (err, stdout, stderr) => {
-				console.log('stdout: ' + stdout);
-				console.log('stderr: ' + stderr);
-				if (err !== null) {
-					console.log('exec error: ' + err);
-				}
-			})
-			return parseInt(data);
-		}
-	})
-}
-
-exports.post = (req, res) => {
-	userSchema.findOne({ id : req.body.id }, (err, doc) => {
-		if ( err || doc.password != req.body.password ) {
-			res.redirect('uploader/failed');
-		} else {
+			console.log("in function : " + data)
+			// TODO: uncomment it when working
+//			exec("rm ../prediction.txt", (err, stdout, stderr) => {
+//				console.log('stdout: ' + stdout);
+//				console.log('stderr: ' + stderr);
+//				if (err !== null) {
+//					console.log('exec error: ' + err);
+//				}
+//			})
 			let upload = new uploadSchema();
 
 			// to run shell command to execute python script
@@ -59,9 +52,12 @@ exports.post = (req, res) => {
 				}
 			});
 
+			upload.reading = parseInt(data);
+			console.log("upload rading : " + upload.reading);
+
 			upload.id = req.body.id;
 			upload.filepath = req.file.filename;
-			upload.prediction = readPrediction();
+			upload.payed = false;
 
 			upload.save((err, doc)=> {
 				if (err) {
@@ -70,7 +66,16 @@ exports.post = (req, res) => {
 					res.redirect('uploader/success');
 				}
 			});
+		}
+	})
+}
 
+exports.post = (req, res) => {
+	userSchema.findOne({ id : req.body.id }, (err, doc) => {
+		if ( err || doc.password != req.body.password ) {
+			res.redirect('uploader/failed');
+		} else {
+			readPrediction(req, res);
 		}
 	})
 };

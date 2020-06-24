@@ -8,6 +8,10 @@ var uploadSchema = new mongoose.Schema({
 	filepath : {
 		type : String,
 		required : "Required"
+	},
+	reading : {
+		type : Number,
+		required : "Required"
 	}
 });
 
