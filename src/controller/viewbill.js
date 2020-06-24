@@ -14,32 +14,53 @@ function parseISOString(s) {
 	return new Date(Date.UTC(b[0], --b[1], b[2], b[3], b[4], b[5], b[6]));
 }
 
+function calcNsend(billinfo, doc1, doc2, res) {
+	billinfo.amount = 40 + 2.4 * (billinfo.diff % 101);
+
+	if (billinfo.diff > 100)
+		billinfo.amount += 2.5 * (billinfo.diff - 100);
+	if (billinfo.diff > 200)
+		billinfo.amount += 3.2 * (billinfo.diff - 200);
+	if (billinfo.diff > 400)
+		billinfo.amount += 3.5 * (billinfo.diff - 400);
+	if (billinfo.diff > 600)
+		billinfo.amount += 4.85 * (billinfo.diff - 600);
+
+
+	console.log('payed data : ' + doc2);
+	console.log('total data : ' + doc1);
+
+	res.render('loginpage', {data: JSON.stringify(doc1), unpayed_data : JSON.stringify(billinfo)});
+
+}
+
 exports.login_post = (req, res) => {
 	userSchema.findOne({id: req.body.id}, (err, doc) => {
 		if (err || doc.password != req.body.password) {
 			res.redirect('loginfailed');
 		} else {
-			uploadSchema.find({id: req.body.id}, (err, doc) => {
+			uploadSchema.find({id: req.body.id}, (err, doc1) => {
 				if (err) {
 					res.redirect('filename');
 				}
-				/* TODO: After uploads starts finding
-					   values from images, uncomment the following */
-				//billinfo.bill = doc[0].value - doc.slice(-1)[0].value;
-				console.log(doc);
-				res.render('loginpage', {data : JSON.stringify(doc)});
-			});
-			uploadSchema.find({id: req.body.id, payed: false}, (err, doc) => {
-				if (err) {
-					res.redirect('filename');
-				}
-				/* TODO: After uploads starts finding
-					   values from images, uncomment the following */
-				//billinfo.bill = doc[0].value - doc.slice(-1)[0].value;
-				let billinfo = {id: req.body.id};
-				billinfo.prevdate = parseISOString(String(doc[0].filepath).slice(0, -4));
-				billinfo.lastdate = parseISOString(String(doc.slice(-1)[0].filepath).slice(0, -4));
-				console.log(billinfo);
+				uploadSchema.find({id: req.body.id, payed: false}, (err, doc2) => {
+					if (err) {
+						res.redirect('filename');
+					}
+					/* TODO: After uploads starts finding
+						   values from images, uncomment the following */
+					//billinfo.bill = doc[0].value - doc.slice(-1)[0].value;
+					let billinfo = {id: req.body.id};
+					let point1 = doc2[0];
+					let point2 = doc2.slice(-1)[0];
+					billinfo.prevdate = parseISOString(String(point1.filepath).slice(0, -4));
+					billinfo.lastdate = parseISOString(String(point2.filepath).slice(0, -4));
+					billinfo.point1 = point1;
+					billinfo.point2 = point2;
+					billinfo.diff = point2.reading - point1.reading;
+
+					calcNsend(billinfo, doc1, doc2, res);
+				});
 			});
 		}
 	});
