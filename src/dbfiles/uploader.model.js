@@ -12,6 +12,10 @@ var uploadSchema = new mongoose.Schema({
 	reading : {
 		type : Number,
 		required : "Required"
+	},
+	payed : {
+		type : Boolean,
+		required : "Required"
 	}
 });
 
