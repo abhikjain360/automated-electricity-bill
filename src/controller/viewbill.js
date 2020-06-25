@@ -26,6 +26,8 @@ function calcNsend(billinfo, doc1, doc2, res) {
 	if (billinfo.diff > 600)
 		billinfo.amount += 4.85 * (billinfo.diff - 600);
 
+	if (doc2.length == 0)
+		billinfo.amount = 0;
 
 	console.log('payed data : ' + doc2);
 	console.log('total data : ' + doc1);
@@ -50,16 +52,29 @@ exports.login_post = (req, res) => {
 					/* TODO: After uploads starts finding
 						   values from images, uncomment the following */
 					//billinfo.bill = doc[0].value - doc.slice(-1)[0].value;
-					let billinfo = {id: req.body.id};
-					let point1 = doc2[0];
-					let point2 = doc2.slice(-1)[0];
-					billinfo.prevdate = parseISOString(String(point1.filepath).slice(0, -4));
-					billinfo.lastdate = parseISOString(String(point2.filepath).slice(0, -4));
-					billinfo.point1 = point1;
-					billinfo.point2 = point2;
-					billinfo.diff = point2.reading - point1.reading;
+					console.log(doc2.length);
+					let billinfo = { id: req.body.id };
+					if (doc2.length == 0) {
+						let point1 = doc1.slice(-1)[0];
+						billinfo.prevdate = parseISOString(String(point1.filepath).slice(0, -4));
+						billinfo.lastdate = billinfo.prevdate;
+						billinfo.point1 = point1;
+						billinfo.point2 = point1;
+						billinfo.diff = 0;
 
-					calcNsend(billinfo, doc1, doc2, res);
+						calcNsend(billinfo, doc1, doc2, res);
+
+					} else {
+						let point1 = doc2[0];
+						let point2 = doc2.slice(-1)[0];
+						billinfo.prevdate = parseISOString(String(point1.filepath).slice(0, -4));
+						billinfo.lastdate = parseISOString(String(point2.filepath).slice(0, -4));
+						billinfo.point1 = point1;
+						billinfo.point2 = point2;
+						billinfo.diff = point2.reading - point1.reading;
+
+						calcNsend(billinfo, doc1, doc2, res);
+					}
 				});
 			});
 		}
