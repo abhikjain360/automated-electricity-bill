@@ -15,7 +15,10 @@ let app = express();
 app.use(bodyparser.urlencoded({ extended: false }));
 
 // views folder
-app.set('views', path.join(__dirname, '/views/'));
+app.set('views', path.join(__dirname, '/views/front-end-view/'));
+
+//temp fixes
+app.use(express.static('./views/front-end-view/css'));
 
 // use pug to render
 app.set('view engine', 'pug');
