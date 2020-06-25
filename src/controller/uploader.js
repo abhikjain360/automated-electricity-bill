@@ -11,7 +11,7 @@ destination: (req, file, cb) => {
 filename: (req, file, cb) => {
 		let d = new Date();
 		d.setHours(d.getHours() + 5);
-		d.setMinutes(d.getMinutes + 30);
+		d.setMinutes(d.getMinutes() + 30);
 		filename = d.toISOString() + '.jpg';
 		cb(null, filename);
 	}
