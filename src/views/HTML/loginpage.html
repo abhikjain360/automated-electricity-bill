@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="css/semantic.css">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+<head>
+    <title>Home Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="ui raised very padded text container segment">
+        <h1 class="ui huge header">Bill Info</h1>
+        <p id="amount"></p>
+        <form class="ui form" action="/viewbill/pay" method="post">
+            <div><input type="hidden" id="id" name="id"></div>
+            <div class="field"><input class="ui orange button" type="submit"></div>
+        </form>
+        <div><canvas id="myChart" width="400" height="400"></canvas></div>
+        <script src="./loginpage.js"></script>
+    </div>
+    <script src="./css/semantic.js"></script>
+</body>
+
+</html>

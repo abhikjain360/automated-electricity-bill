@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="css/semantic.css">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+<head>
+    <title>Upload Image</title>
+</head>
+
+<body>
+    <div class="ui raised very padded text container segment">
+        <h1 class="ui huge header">Upload Image</h1>
+        <form class="ui form" action="/uploader" method="post" enctype="multipart/form-data">
+            <div class="field"><label>Id:</label><input type="text" name="id"></div>
+            <div class="field">
+                <label>Image:</label>
+                <div class="ui large green button" onclick="getFile()">
+                    <i class="ui upload icon"></i>
+                    Upload Image
+                    <input type="file" id="imageUpload" name="imgfile" style="display: none;">
+                </div>
+            </div>
+            <div class="field"><label>Password:</label><input type="password" name="password"></div>
+            <div class="field"><input class="ui green button" type="submit"></div>
+        </form>
+    </div>
+    <script>
+        function getFile() {
+            document.getElementById("imageUpload").click();
+        }
+    </script>
+    <script src="./css/semantic.js"></script>
+</body>
+
+</html>
