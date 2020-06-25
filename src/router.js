@@ -24,6 +24,7 @@ router.get('/uploader/failed', uploader.failed);
 router.get('/viewbill/login', viewbill.login);
 router.post('/viewbill/login', viewbill.login_post);
 router.get('/viewbill/loginpage', viewbill.login_page);
+router.post('/viewbill/pay', viewbill.pay);
 //router.get('/viewbill/loginfailed', viewbill.failed);
 //
 module.exports = router;
