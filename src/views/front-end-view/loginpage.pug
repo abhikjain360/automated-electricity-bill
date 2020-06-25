@@ -1,0 +1,19 @@
+doctype html
+link(rel='stylesheet', type='text/css', href='css/semantic.css')
+link(rel='stylesheet', type='text/css', href='css/styles.css')
+head
+  title Home Page
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js')
+  script(src='https://cdn.jsdelivr.net/npm/chart.js')
+.ui.raised.very.padded.text.container.segment
+  h1.ui.huge.header Bill Info
+  p#amount
+  form.ui.form(action='/viewbill/pay', method='post')
+    div
+      input#id(type='hidden', name='id')
+    .field
+      input.ui.orange.button(type='submit')
+  div
+    canvas#myChart(width='400', height='400')
+  script(src='./loginpage.js')
+script(src='./css/semantic.js')

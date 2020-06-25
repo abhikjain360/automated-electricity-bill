@@ -1,0 +1,27 @@
+doctype html
+link(rel='stylesheet', type='text/css', href='css/semantic.css')
+link(rel='stylesheet', type='text/css', href='css/styles.css')
+head
+  title Upload Image
+.ui.raised.very.padded.text.container.segment
+  h1.ui.huge.header Upload Image
+  form.ui.form(action='/uploader', method='post', enctype='multipart/form-data')
+    .field
+      label Id:
+      input(type='text', name='id')
+    .field
+      label Image:
+      .ui.large.green.button(onclick='getFile()')
+        i.ui.upload.icon
+        |                     Upload Image
+        input#imageUpload(type='file', name='imgfile', style='display: none;')
+    .field
+      label Password:
+      input(type='password', name='password')
+    .field
+      input.ui.green.button(type='submit')
+script.
+  function getFile() {
+  document.getElementById("imageUpload").click();
+  }
+script(src='./css/semantic.js')

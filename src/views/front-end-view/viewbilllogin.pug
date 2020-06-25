@@ -1,0 +1,17 @@
+doctype html
+link(rel='stylesheet', type='text/css', href='css/semantic.css')
+link(rel='stylesheet', type='text/css', href='css/styles.css')
+head
+  title View Bill
+.ui.raised.very.padded.text.container.segment
+  h1.ui.large.header View Bill
+  form.ui.form(action='/viewbill/login', method='post')
+    .field
+      label Id:
+      input(type='text', name='id')
+    .field
+      label Password:
+      input(type='password', name='password')
+    .field
+      input.ui.orange.button(type='submit')
+script(src='./css/semantic.js')
