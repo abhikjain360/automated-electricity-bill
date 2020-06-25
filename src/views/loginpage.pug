@@ -51,10 +51,10 @@ html(lang='en')
 				}
 			});
 
-			docs = !{unpayed_data}
+			let docs2 = !{unpayed_data}
 			var label = document.getElementById('amount')
 
-			let prevdate = new Date(docs.prevdate);
+			let prevdate = new Date(docs2.prevdate);
 			let year = prevdate.getFullYear();
 			let month = prevdate.getMonth()+1;
 			let dt = prevdate.getDate();
@@ -66,7 +66,7 @@ html(lang='en')
 			  month = '0' + month;
 			}
 
-			let nextdate = new Date(docs.lastdate);
+			let nextdate = new Date(docs2.lastdate);
 			year = nextdate.getFullYear();
 			month = nextdate.getMonth()+1;
 			dt = nextdate.getDate();
@@ -79,5 +79,5 @@ html(lang='en')
 			}
 
 			label.innerHTML = "Duration of unpayed bill : <b>" + prevdate + "</b> to <b>" + nextdate + "</b><br>"
-								+ "You have consumed total of <b>" + docs.diff + "</b> Watts <br>"
-								+ "Amounting to total bill of : Rs. <b>" + docs.amount + "</b>"
+								+ "You have consumed total of <b>" + docs2.diff + "</b> Watts <br>"
+								+ "Amounting to total bill of : Rs. <b>" + docs2.amount + "</b>"
